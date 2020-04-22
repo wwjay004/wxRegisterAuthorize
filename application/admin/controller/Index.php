@@ -5,6 +5,8 @@ namespace app\admin\controller;
 
 
 use think\Controller;
+use app\admin\model\Order as OrderModel;
+use think\Db;
 
 class Index extends Controller
 {
@@ -15,6 +17,28 @@ class Index extends Controller
 
     // 自助订单
     public function orders() {
+        if(request() -> isPost()){
+            $pagingOrders = OrderModel::getSummaryByPage(1, 15);
+            if($pagingOrders -> isEmpty()){
+                return [
+                    'data' => [],
+                    'current_page' =>$pagingOrders::getCurrentPage(),
+                ];
+            }
+            $count = Db::name('order')->count("id");
+            $data = $pagingOrders->hidden(['snap_items'])->toArray();
+//            print_r($data['data']);die;
+            $this->assign([
+               'd' => $data['data']
+            ]);
+            $res = array(
+                'code' => 1,
+                'msg'  => '',
+                'total'  => $count,
+                'list'   => $data
+            );
+            return json($res);
+        }
         return $this->fetch('orders');
     }
 
