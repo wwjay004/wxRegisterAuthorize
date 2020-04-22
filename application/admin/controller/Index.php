@@ -27,10 +27,6 @@ class Index extends Controller
             }
             $count = Db::name('order')->count("id");
             $data = $pagingOrders->hidden(['snap_items'])->toArray();
-//            print_r($data['data']);die;
-            $this->assign([
-               'd' => $data['data']
-            ]);
             $res = array(
                 'code' => 1,
                 'msg'  => '',
