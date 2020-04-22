@@ -1,0 +1,124 @@
+{include file="common/_header"}
+<style>
+    .weui-input{
+        font-size: 0.72rem;
+    }
+</style>
+<div class="weui-cells weui-cells_form" style="margin-top:0">
+    <form id="form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">企业名</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" name="data[name]" placeholder="请输入企业名称">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">企业代码</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" name="data[code]" placeholder="请输入相应的企业代码">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">代码类型</label></div>
+        <div class="weui-cell__bd">
+            <select class="weui-input" name="data[code_type]">
+                <option value="1">统一社会信用代码（18位）</option>
+                <option value="2">组织机构代码（9位xxxxxxxx-x）</option>
+                <option value="3">营业执照注册号(15位)</option>
+            </select>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">法人微信号</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" name="data[legal_persona_wechat]" type="text" pattern="" placeholder="请输入法人的微信号（需已绑定银行卡）">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">法人姓名</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" name="data[legal_persona_name]" type="text" pattern="" placeholder="请输入法人真实姓名">
+        </div>
+    </div>
+    </form>
+</div>
+<div class="weui-cells__tips">*请确保所填写资料的准确性，否则无法成功创建。</div>
+<a href="javascript:;" class="weui-btn weui-btn_primary" id="submit" style="width: auto;margin: 20px;">
+    {if empty($settings['button_text'])}立即提交{else}{$settings['button_text']}{/if}
+</a>
+<script>
+$(function () {
+    $('#submit').on('click', function () {
+        var $this = $(this);
+        if ($('input[name="data[name]"]').isEmpty()) {
+            $.toast("请填写企业名称", "text");
+            return
+        }
+        if ($('input[name="data[code]"]').isEmpty()) {
+            $.toast("请填写企业代码", "text");
+            return
+        }
+        if ($('input[name="data[legal_persona_wechat]"]').isEmpty()) {
+            $.toast("请填写法人微信号", "text");
+            return
+        }
+        if ($('input[name="data[legal_persona_name]"]').isEmpty()) {
+            $.toast("请填写法人姓名", "text");
+            return
+        }
+        if ($(this).attr('submit')) {
+            return
+        }
+        var buttonText = $(this).text();
+        $(this).html('处理中...').attr('submit', 1);
+        jQuery.ajax({
+            type: "post",
+            dataType: "json",
+            url: "{php echo $this->createMobileUrl('submitOrder')}",
+            cache: false,
+            data: $('#form').serialize(),
+            beforeSend: function(){
+            },
+            success: function(res){
+                if(res.status == '0'){
+                    var result = res.result;
+                    //微信支付
+                    function onBridgeReady() {
+                        WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                            'appId': result.appid ? result.appid : result.appId,
+                            'timeStamp': result.timeStamp.toString(),
+                            'nonceStr': result.nonceStr,
+                            'package': result.package,
+                            'signType': result.signType,
+                            'paySign': result.paySign,
+                        }, function(res) {
+                            if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                                console.log('支付成功');
+                                $.alert("请返回微信进行授权认证", "支付成功");
+                                $this.html(buttonText).removeAttr('submit');
+                            } else if (res.err_msg == 'get_brand_wcpay_request:cancel') {
+                                $.toast("取消支付", "text");
+                                $this.html(buttonText).removeAttr('submit');
+                            }
+                        })
+                    }
+                    if (typeof WeixinJSBridge == "undefined") {
+                        if (document.addEventListener) {
+                            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false)
+                        } else if (document.attachEvent) {
+                            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady)
+                        }
+                    } else {
+                        onBridgeReady();
+                    }
+                }else{
+                    $.alert(res.result.message, "提示");
+                    $this.html(buttonText).removeAttr('submit');
+                }
+            }
+        });
+    });
+});
+</script>
+{include file="common/_footer"}

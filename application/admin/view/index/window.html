@@ -1,0 +1,52 @@
+
+<div style="padding: 20px">
+	
+	<form class="layui-form" lay-filter="create" onsubmit = "return false">
+		<div class="layui-form-item">
+			<label class="layui-form-label">企业名</label>
+			<div class="layui-input-block">
+				<input type="text" name="data[name]" required  lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">企业代码</label>
+			<div class="layui-input-block">
+				<input type="text" name="data[code]" required  lay-verify="required" placeholder="请输入相应的企业代码" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">代码类型</label>
+			<div class="layui-input-block">
+				<select name="data[code_type]" lay-verify="required">
+					<option value="1">统一社会信用代码（18位）</option>
+					<option value="2">组织机构代码（9位xxxxxxxx-x）</option>
+					<option value="3">营业执照注册号(15位)</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">法人微信号</label>
+			<div class="layui-input-block">
+				<input type="text" name="data[legal_persona_wechat]" required  lay-verify="required" placeholder="请输入法人的微信号（需已绑定银行卡）" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">法人姓名</label>
+			<div class="layui-input-block">
+				<input type="text" name="data[legal_persona_name]" required  lay-verify="required" placeholder="请输入法人姓名" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">第三方电话</label>
+			<div class="layui-input-block">
+				<input type="text" name="data[component_phone]" required  lay-verify="required" placeholder="请输入第三方联系电话（方便法人与第三方联系）" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn layui-btn-normal" lay-submit lay-filter="submit">立即提交</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/dist/imfox/window/add_wxapp.js"></script>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="" />
+    <link href="__STATIC__/css/common/bootstrap.min.css" rel="stylesheet">
+    <link href="__STATIC__/css/common/common.css" rel="stylesheet">
+    <script type="text/javascript">
+        if(navigator.appName == 'Microsoft Internet Explorer'){
+            if(navigator.userAgent.indexOf("MSIE 5.0")>0 || navigator.userAgent.indexOf("MSIE 6.0")>0 || navigator.userAgent.indexOf("MSIE 7.0")>0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+        window.sysinfo = {
+            'uniacid': '7', 'acid': '7', 'uid': '1', 'role': 'founder', 'highest_role': 'founder', 'isfounder': 1,
+            'family': 'x',
+            'siteroot': '',
+            'siteurl': '',
+            'attachurl': '',
+            'attachurl_local': '',
+            'attachurl_remote': '',
+            'module': {'url': ''},
+            'cookie': {'pre': '666'},
+        }
+    </script>
+    <script>var require = { urlArgs: 'v={IMS_RELEASE_DATE}' };</script>
+    <script type="text/javascript" src="__STATIC__/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/app/util.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/app/common.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/require.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/dist/jquery/jquery.nice-select.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="slimscroll" src="__STATIC__/js/dist/jquery/jquery.slimscroll.min.js"></script>
+    <link id="layuicss-layer" rel="stylesheet" href="__STATIC__/js/dist/layui/css/modules/layer/default/layer.css" media="all">
+</head>
+<body>
+<div class="loader" style="display:none">
+    <div class="la-ball-clip-rotate">
+        <div></div>
+    </div>
+</div>
+<div class="skin-2 skin-2--full">
+    <div class="skin-2__left">
+        <!-- logo -->
+        <a class="skin-2__logo" href="">
+            <img src="__STATIC__/images/logo.png" class="logo" style="max-height: 40px;max-width: 100px;">
+        </a>
+        <!-- end logo-->
+        <!-- 一级菜单 -->
+        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: calc(100vh - 90px);">
+            <ul class="main-nav" style="overflow: hidden; width: auto; height: calc(100vh - 90px);"></ul>
+            <div class="slimScrollBar" style="background: rgb(152, 152, 152); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px;"></div>
+            <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+        </div>
+        <!-- end一级菜单 -->
+        <a href="javascript:;" class="js-lock-menu skin-2__lock lock">
+            <div class="unlock" data-toggle="tooltip" data-placement="right" data-container="body" title="" data-original-title="菜单锁定">
+                <i class="wi wi-appjurisdiction"></i>
+            </div>
+            <div class="locked" data-toggle="tooltip" data-placement="top" data-container="body" title="" data-original-title="点击解锁">
+                菜单已锁定
+            </div>
+        </a>
+    </div>
+
+    <div class="skin-2__right">
+        <div class="skin-2__header">
+
+        </div>
+        <div class="skin-2__content main">
+            <div class="skin-2__sub">
+                <div class="sub-top">
+                    <!-- 模块信息 -->
+                    <!-- 模块信息 -->
+                </div>
+                <!-- 二级菜单-->
+                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 200px; height: 694px;">
+                    <div class="js-menu" id="js-menu-account7" style="overflow: hidden; width: 200px; height: 694px;">
+                        <div class="panel panel-menu">
+                            <div class="panel-heading">
+								<span class="" data-toggle="collapse" data-target="#frame-platform_module_menu" onclick="util.cookie.set('menu_fold_tag:platform_module_menu', util.cookie.get('menu_fold_tag:platform_module_menu') == 1 ? 0 : 1)">
+									<span class="nav-title">业务菜单<i class="wi wi-angle-down pull-right setting"></i></span>
+								</span>
+                            </div>
+                            <ul class="list-group collapse in" id="frame-platform_module_menu">
+                                <li class="list-group-item list-group-item-plugin  ">
+                                    <a href="{:url('index/orders')}" class="text-over">
+                                        <span class="nav-icon"><i class="wi wi-appsetting"></i></span>
+                                        <span class="nav-title">自助订单</span>
+                                    </a>
+                                </li>
+                                <li class="list-group-item list-group-item-plugin  ">
+                                    <a href="{:url('index/settings')}" class="text-over">
+                                        <span class="nav-icon"><i class="wi wi-appsetting"></i></span>
+                                        <span class="nav-title">自助提交</span>
+                                    </a>
+                                </li>
+                                <li class="list-group-item list-group-item-plugin  ">
+                                    <a href="{:url('index/tips')}" class="text-over">
+                                        <span class="nav-icon"><i class="wi wi-appsetting"></i></span>
+                                        <span class="nav-title">创建中心</span>
+                                    </a>
+                                </li>
+                                <li class="list-group-item list-group-item-plugin">
+                                    <a href="{:url('index/wxapp')}" class="text-over">
+                                        <span class="nav-icon"><i class="wi wi-appsetting"></i></span>
+                                        <span class="nav-title">小程序列表</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="slimScrollBar" style="background: rgb(152, 152, 152); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 694px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+                <!-- end二级菜单-->
+                </div>
+                <div class="skin-2__container container">
+                    <!-- 页面content -->
+                    <div class="content">
+
+                    <!-- end 页面content -->

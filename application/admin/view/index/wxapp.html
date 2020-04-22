@@ -1,0 +1,94 @@
+{include file="common/header-base" /}
+{include file="common/header" /}
+
+<div class="imfox-container">
+    <table class="layui-table" id="list" lay-filter="list" lay-skin="line"></table>
+</div>
+<script type="text/html" id="list-top-toolbar">
+    <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addWxapp">创建小程序</button>
+</script>
+<script type="text/html" id="list-table-tool">
+    <div class="controller-box">
+        <a href="javascript:;" lay-event="show">查看</a>
+        <a href="javascript:;" lay-event="delete">删除</a>
+    </div>
+</script>
+<script type="text/html" id="list-table-status">
+    {{# if(d.status == '0' && d.appid != '' && d.appid != undefined){ }}
+    <a style="color: #01aaed">创建成功</a>
+    {{# }else if(d.status == '0' && (d.appid == '' || d.appid == undefined)){ }}
+    <a href="javascript:;" style="color: #fb6638" lay-event="show">待处理，查看进度</a>
+    {{# }else{ }}
+    <a href="javascript:;" style="color: #fb6638" lay-event="reason">异常，查看原因</a>
+    {{# } }}
+</script>
+<script type="text/javascript">
+layui.use(['table', 'layer'], function() {
+    var table = layui.table, layer = layui.layer;
+    var tableIns = table.render({
+        elem: '#list',
+        defaultToolbar: [],
+        url: "{{:url()}}",
+        page: true,
+        method: 'post',
+        skin: 'line',
+        cols: [[
+            {field: 'id', title: 'ID',unresize: true, width: 80},
+            {field: 'name', title: '小程序名',unresize: true},
+            {field: 'key', title: 'AppID', width:180,align:"center",unresize: true},
+            {field: 'original', title: '原始ID', width:150,align:"center",unresize: true},
+            {field: 'company', title: '主体', width:300,align:"center",unresize: true},
+            {field: 'controller', title: '操作', width:200,align:"center", toolbar: '#list-table-tool',unresize: true, fixed: "right"},
+        ]],
+        limit: 20,
+        response: {
+            statusName: 'status' //规定数据状态的字段名称，默认：code
+            ,statusCode: 1 //规定成功的状态码，默认：0
+            ,msgName: 'message' //规定状态信息的字段名称，默认：msg
+            ,countName: 'total' //规定数据总数的字段名称，默认：count
+            ,dataName: 'list' //规定数据列表的字段名称，默认：data
+        }
+    });
+    table.on('tool(list)', function(obj){
+        switch(obj.event){
+            case 'show':
+                var msg = layer.msg("加载中...");
+                setTimeout(function () {
+                    window.open();
+                    layer.close(msg);
+                }, 1000)
+                break;
+            case 'delete':
+                layer.confirm('确认删除该小程序？<br>删除后将无法找回', {icon: 3, title:'提示'}, function(index){
+                    var index;
+                    jQuery.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "",
+                        cache: false,
+                        data: obj.data,
+                        beforeSend: function(){
+                            index = layer.load();
+                        },
+                        success: function(res2){
+                            layer.close(index);
+                            if(res2.status == '0'){
+                                layer.alert(res2.result.message);
+                            }else{
+                                layer.alert(res2.result.message);
+                                table.reload('list', {
+                                    page: {
+                                        curr: 1
+                                    }
+                                });
+                            }
+                        }
+                    });
+                });
+                break;
+        }
+    });
+})
+</script>
+
+{include file="common/footer"}

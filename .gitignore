@@ -1,0 +1,6 @@
+/.idea
+/.vscodegit remote add
+/vendor
+*.log
+thinkphp
+.env

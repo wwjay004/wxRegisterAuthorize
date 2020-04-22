@@ -1,0 +1,27 @@
+{include file="common/header"}
+{include file="system/common/_header"}
+<div class="imfox-container">
+	<table class="layui-table" id="list" lay-filter="list" lay-skin="line"></table>
+</div>
+<script type="text/html" id="list-top-toolbar">
+	<button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addWxapp">创建小程序</button>
+</script>
+<script type="text/html" id="list-table-tool">
+	<div class="controller-box">
+		{{# if(d.status == '0' && d.appid != '' && d.appid != undefined && d.is_create == '0'){ }}
+		<a href="javascript:;" lay-event="add">添加至系统</a>
+		{{# } }}
+		<a href="javascript:;" lay-event="delete">删除</a>
+	</div>
+</script>
+<script type="text/html" id="list-table-status">
+	{{# if(d.status == '0' && d.appid != '' && d.appid != undefined){ }}
+	<a style="color: #01AAED">创建成功</a>
+	{{# }else if(d.status == '0' && (d.appid == '' || d.appid == undefined)){ }}
+	<a href="javascript:;" style="color: #fb6638" lay-event="show">待处理，查看进度</a>
+	{{# }else{ }}
+	<a href="javascript:;" style="color: #fb6638" lay-event="reason">异常，查看原因</a>
+	{{# } }}
+</script>
+<script type="text/javascript" src="__STATIC__/js/dist/imfox/manage.js"></script>
+{include file="common/footer"}
